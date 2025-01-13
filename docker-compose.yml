@@ -1,0 +1,12 @@
+services:
+  ollama:
+    image: ollama/ollama:0.5.5
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:
