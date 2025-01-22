@@ -8,8 +8,10 @@ defmodule Archivist.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Archivist.Worker.start_link(arg)
-      # {Archivist.Worker, arg}
+      Archivist.Repo,
+      {Archivist.Worker,
+       dir: System.fetch_env!("ARCHIVIST_INBOX"),
+       interval_seconds: 1}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

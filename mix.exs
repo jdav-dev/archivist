@@ -22,7 +22,12 @@ defmodule Archivist.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ollama, "~> 0.8.0"}
+      {:bypass, "~> 2.1", only: :test},
+      {:ecto_sql, "~> 3.12"},
+      {:ecto_sqlite3, "~> 0.18.1"},
+      {:file_system, "~> 1.1"},
+      {:ollama, "~> 0.8.0"},
+      {:req, "~> 0.5.8"}
     ]
   end
 end
