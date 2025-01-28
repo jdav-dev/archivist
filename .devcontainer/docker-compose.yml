@@ -1,0 +1,32 @@
+services:
+  archivist:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+      - shell_histories:/root/.cache/erlang-history
+      - vscode_extensions:/root/.vscode-server-insiders
+    command: sleep infinity
+    network_mode: service:ollama
+
+  ollama:
+    image: ollama/ollama:0.5.5
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  shell_histories:
+  ollama_data:
+  vscode_extensions:
