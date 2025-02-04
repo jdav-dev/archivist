@@ -187,7 +187,6 @@ defmodule Archivist.SystemCalls do
     case System.cmd("ocrmypdf", [
            "--output-type",
            "pdfa",
-           "--quiet",
            "--rotate-pages",
            "--deskew",
            "--skip-text",
@@ -203,7 +202,7 @@ defmodule Archivist.SystemCalls do
   def pdf_to_text(path) do
     Logger.info(["Calling pdftotext on ", Path.basename(path)])
 
-    case System.cmd("pdftotext", ["-eol", "unix", "-q", path, "-"]) do
+    case System.cmd("pdftotext", ["-eol", "unix", path, "-"]) do
       {pdf_text, 0} -> {:ok, pdf_text}
       {_output, _exit_status} -> :error
     end
