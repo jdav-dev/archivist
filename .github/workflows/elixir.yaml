@@ -55,6 +55,12 @@ jobs:
           --cache-from $branch_tag \
           .
 
+        if [ "${branch}" = "main" ]; then
+          latest_tag="${image}:latest"
+          docker tag $sha_tag $latest_tag
+          docker push $latest_tag
+        fi
+
   build_devcontainer:
     name: Build devcontainer
     runs-on: ubuntu-latest
