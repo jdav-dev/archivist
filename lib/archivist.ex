@@ -10,9 +10,10 @@ defmodule Archivist do
 
   @callback init :: :ok | :error
 
-  @callback ocr_pdf(path :: Path.t()) :: :ok | :error
+  @callback ocr_pdf(path :: Path.t()) :: :ok | {:error, reason :: term()}
 
-  @callback pdf_to_text(path :: Path.t()) :: {:ok, pdf_text :: String.t()} | :error
+  @callback pdf_to_text(path :: Path.t()) ::
+              {:ok, pdf_text :: String.t()} | {:error, reason :: term()}
 
   @implementation Application.compile_env(:archivist, :implementation, Archivist.SystemCalls)
 

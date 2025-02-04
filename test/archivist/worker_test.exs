@@ -159,7 +159,7 @@ defmodule Archivist.WorkerTest do
       pdf_path = Path.join(inbox, "archive_me.pdf")
       File.touch!(pdf_path)
 
-      expect(Archivist.Mock, :ocr_pdf, fn _pdf_path -> :error end)
+      expect(Archivist.Mock, :ocr_pdf, fn _pdf_path -> {:error, {1, "some error"}} end)
 
       {result, error_log} =
         with_log([level: :error], fn ->

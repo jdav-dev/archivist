@@ -194,7 +194,7 @@ defmodule Archivist.SystemCalls do
            path
          ]) do
       {_output, 0} -> :ok
-      {_output, _non_zero_exit_status} -> :error
+      {output, exit_status} -> {:error, {exit_status, output}}
     end
   end
 
@@ -204,7 +204,7 @@ defmodule Archivist.SystemCalls do
 
     case System.cmd("pdftotext", ["-eol", "unix", path, "-"]) do
       {pdf_text, 0} -> {:ok, pdf_text}
-      {_output, _exit_status} -> :error
+      {output, exit_status} -> {:error, {exit_status, output}}
     end
   end
 end
