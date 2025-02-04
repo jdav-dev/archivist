@@ -5,12 +5,13 @@ defmodule Archivist.Application do
 
   use Application
 
-  @impl true
+  @impl Application
   def start(_type, _args) do
-    children = [
-      # Starts a worker by calling: Archivist.Worker.start_link(arg)
-      # {Archivist.Worker, arg}
-    ]
+    children =
+      case Application.get_env(:archivist, :worker) do
+        worker_opts when is_list(worker_opts) -> [{Archivist.Worker, worker_opts}]
+        nil -> []
+      end
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
