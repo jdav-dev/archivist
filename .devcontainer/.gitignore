@@ -1,0 +1,2 @@
+# Ignore host-specific extensions to the Docker Compose dev stack.
+docker-compose.extend.yml
