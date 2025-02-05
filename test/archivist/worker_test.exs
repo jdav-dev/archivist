@@ -169,7 +169,7 @@ defmodule Archivist.WorkerTest do
       assert {:noreply, updated_state, {:continue, :next_file}} = result
       assert MapSet.member?(updated_state.failed, pdf_path)
 
-      assert error_log =~ ~s/Failed to archive "archive_me.pdf": :error/
+      assert error_log =~ ~s/Failed to archive "archive_me.pdf": {:error, {1, "some error"}}/
     end
 
     test ":archive skips files that fail to extract PDF information", %{
