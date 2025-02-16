@@ -4,9 +4,7 @@ defmodule Archivist do
   """
 
   @callback extract_pdf_information(path :: Path.t()) ::
-              {:ok,
-               %{category: String.t(), date: String.t(), source: String.t(), title: String.t()}}
-              | :error
+              {:ok, %{date: String.t(), source: String.t(), title: String.t()}} | :error
 
   @callback init :: :ok | :error
 
@@ -24,7 +22,6 @@ defmodule Archivist do
 
       iex> Archivist.extract_pdf_information(pdf_path)
       {:ok, %{
-          category: "money",
           date: "2025-01-30",
           source: "abc-corp",
           title: "invoice-for-jan"

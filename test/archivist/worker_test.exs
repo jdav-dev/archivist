@@ -131,7 +131,6 @@ defmodule Archivist.WorkerTest do
       File.touch!(pdf_path)
 
       pdf_info = %{
-        category: "money",
         date: "2025-01-30",
         source: "abc-corp",
         title: "invoice-for-jan"
@@ -148,7 +147,7 @@ defmodule Archivist.WorkerTest do
 
       assert {:noreply, state, {:continue, :next_file}} == result
 
-      archive_path = Path.join([archive, "money", "2025-01-30_abc-corp_invoice-for-jan.pdf"])
+      archive_path = Path.join([archive, "2025-01-30_abc-corp_invoice-for-jan.pdf"])
       assert File.exists?(archive_path)
 
       assert info_log =~ "Archiving #{inspect(pdf_path)}"
@@ -203,15 +202,13 @@ defmodule Archivist.WorkerTest do
       File.touch!(pdf_path)
 
       pdf_info = %{
-        category: "money",
         date: "2025-01-30",
         source: "abc-corp",
         title: "invoice-for-jan"
       }
 
-      category_path = Path.join(archive, "money")
-      File.mkdir_p!(category_path)
-      archive_path = Path.join(category_path, "2025-01-30_abc-corp_invoice-for-jan.pdf")
+      File.mkdir_p!(archive)
+      archive_path = Path.join(archive, "2025-01-30_abc-corp_invoice-for-jan.pdf")
       File.touch!(archive_path)
 
       Archivist.Mock

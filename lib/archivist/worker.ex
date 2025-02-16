@@ -56,13 +56,11 @@ defmodule Archivist.Worker do
   end
 
   defp move_file(path, extracted_info, state) do
-    category_path = Path.join(state.archive, extracted_info.category)
-
     archive_filename =
       "#{extracted_info.date}_#{extracted_info.source}_#{extracted_info.title}.pdf"
 
-    File.mkdir_p!(category_path)
-    archive_path = Path.join(category_path, archive_filename)
+    File.mkdir_p!(state.archive)
+    archive_path = Path.join(state.archive, archive_filename)
 
     Logger.info("Moving #{inspect(Path.basename(path))} to #{inspect(archive_path)}")
 
@@ -75,7 +73,7 @@ defmodule Archivist.Worker do
           [
             System.system_time(:second),
             Path.basename(path),
-            Path.join(extracted_info.category, archive_filename)
+            archive_filename
           ]
         ])
 
